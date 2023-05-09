@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  rabbithole-repo:
+    container_name: rabbithole-repo
+    image: dzikoysk/reposilite:3.0.0-rc.2
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    environment:
+      - JAVA_OPTS=-Xmx${MEMORY} ${JAVA_COMPOSE_OPTS}
+      - REPOSILITE_OPTS=--port ${PORT} ${REPOSILITE_COMPOSE_OPTS} --token admin:Qc2Un94VCRM8FvcP
+    volumes:
+      - ./reposilite-data:/app/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
